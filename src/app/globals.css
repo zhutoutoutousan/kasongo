@@ -1,0 +1,162 @@
+@import "tailwindcss";
+@import "maplibre-gl/dist/maplibre-gl.css";
+
+:root {
+  --kasongo-black: #0a0a0a;
+  --kasongo-lime: #dfff00;
+  --kasongo-lime-dim: #b8d600;
+  --kasongo-yellow: #ffd700;
+  --kasongo-green: #39ff14;
+  --kasongo-red: #ff3333;
+  --background: var(--kasongo-black);
+  --foreground: #f5f5f5;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-kasongo-lime: var(--kasongo-lime);
+  --color-kasongo-yellow: var(--kasongo-yellow);
+  --color-kasongo-green: var(--kasongo-green);
+  --color-kasongo-red: var(--kasongo-red);
+  --font-sans: var(--font-space-grotesk);
+  --font-display: var(--font-bebas);
+  --font-family-display: var(--font-bebas), sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--kasongo-lime);
+  color: var(--kasongo-black);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #111;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--kasongo-lime);
+  border-radius: 3px;
+}
+
+/* Map overrides */
+.maplibregl-ctrl-attrib {
+  font-size: 10px !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+  color: #888 !important;
+}
+.maplibregl-ctrl-attrib a {
+  color: var(--kasongo-lime) !important;
+}
+
+/* Animations */
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes radar-sweep {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(223, 255, 0, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(223, 255, 0, 0.6); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-radar {
+  animation: radar-sweep 4s linear infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.6s ease-out forwards;
+}
+
+.animate-ticker {
+  animation: ticker 30s linear infinite;
+}
+
+/* Grain overlay */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+/* Section styling */
+.section-title {
+  font-family: var(--font-bebas), sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.font-display {
+  font-family: var(--font-bebas), sans-serif;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.lime-gradient {
+  background: linear-gradient(135deg, var(--kasongo-lime) 0%, var(--kasongo-green) 100%);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--kasongo-lime), var(--kasongo-yellow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
